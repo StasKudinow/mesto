@@ -1,0 +1,5 @@
+.profile__title {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
