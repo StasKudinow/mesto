@@ -1,0 +1,9 @@
+.popup__name {
+  width: 358px;
+  /* тут - на глазок коддинг. */
+  margin-bottom: 38px;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  outline: none;
+}
