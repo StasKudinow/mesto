@@ -1,9 +1,17 @@
 .popup__name {
   width: 358px;
-  /* тут - на глазок коддинг. */
-  margin-bottom: 38px;
-  padding: 0;
+  margin-bottom: 28px;
+  padding: 0 0 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   outline: none;
+}
+
+@media screen and (max-width: 619px) {
+  .popup__name {
+    width: 238px;
+  }
 }
