@@ -1,0 +1,9 @@
+.elements__card {
+  width: 282px;
+  height: 361px;
+  border-radius: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+}

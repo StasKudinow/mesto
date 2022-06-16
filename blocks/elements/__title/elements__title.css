@@ -1,0 +1,7 @@
+.elements__title {
+  width: 246px;
+  margin: 26px 20px 30px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

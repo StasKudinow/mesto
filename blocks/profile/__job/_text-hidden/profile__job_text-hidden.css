@@ -1,0 +1,5 @@
+.profile__job_text-hidden {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
