@@ -1,4 +1,4 @@
-.profile__button-vector {
+.profile__plus-vector {
   width: 22px;
   height: 22px;
   background-image: url(../../../images/plus-vector.svg);
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 879px) {
-  .profile__button-vector {
+  .profile__plus-vector {
     width: 16px;
     height: 16px;
   }
