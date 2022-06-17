@@ -6,7 +6,6 @@
   right: -44px;
   background-image: url(../../../images/edit-button.svg);
   background-size: cover;
-  object-fit: contain;
   border: none;
   background-color: #000000;
 }

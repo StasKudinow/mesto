@@ -4,7 +4,6 @@
   margin-bottom: 40px;
   background-image: url(../../../images/logo.svg);
   background-size: cover;
-  object-fit: contain;
 }
 
 @media screen and (max-width: 879px) {
