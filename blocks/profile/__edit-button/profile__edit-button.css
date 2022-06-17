@@ -5,6 +5,7 @@
   top: 20px;
   right: -44px;
   background-image: url(../../../images/edit-button.svg);
+  background-size: cover;
   object-fit: contain;
   border: none;
   background-color: #000000;
@@ -21,6 +22,5 @@
     height: 18px;
     top: 8px;
     right: -28px;
-    background-size: cover;
   }
 }
