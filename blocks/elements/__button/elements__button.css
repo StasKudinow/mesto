@@ -4,7 +4,9 @@
   background-image: url(../../../images/like-vector.svg);
   background-size: cover;
   background-position: center;
+  object-fit: contain;
   border: none;
+  background-color: #FFFFFF;
 }
 
 .elements__button:hover {
