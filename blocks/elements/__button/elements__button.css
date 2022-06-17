@@ -5,10 +5,16 @@
   background-image: url(../../../images/like-vector.svg);
   background-size: cover;
   border: none;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .elements__button:hover {
   opacity: 0.5;
   transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.elements__button:active {
+  background-image: url(../../../../images/like-active.svg);
+  opacity: 1;
 }
