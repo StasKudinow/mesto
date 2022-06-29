@@ -38,6 +38,10 @@ const renderCard = (element) => {
   elementsCard.querySelector('.elements__image').alt = element.name;
   elementsCard.querySelector('.elements__name').textContent = element.name;
 
+  elementsCard.querySelector('.elements__button').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('elements__button_active');
+  });
+
   cardsContainer.append(elementsCard);
 };
 
@@ -46,7 +50,6 @@ const renderCard = (element) => {
  const editButton = document.querySelector('.profile__edit-button');
  const popup = document.querySelector('.popup');
  const closeButton = document.querySelector('.popup__close-button');
- // const likeButton = document.querySelector('.elements__button');
  let formElement = document.querySelector('.popup__container');
  let nameInput = document.querySelector('.popup__field_name');
  let jobInput = document.querySelector('.popup__field_job');
@@ -69,11 +72,6 @@ function popupAreaClose(evt) {
   };
 };
 
-// function likeActive(evt) {
-//   evt.preventDefault();
-//   likeButton.classList.toggle('elements__button_active');
-// };
-
 function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -84,5 +82,4 @@ function formSubmitHandler(evt) {
 editButton.addEventListener('click', popupOpen);
 closeButton.addEventListener('click', popupClose);
 popup.addEventListener('click', popupAreaClose);
-// likeButton.addEventListener('click', likeActive);
 formElement.addEventListener('submit', formSubmitHandler);
