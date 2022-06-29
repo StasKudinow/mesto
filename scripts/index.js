@@ -1,27 +1,27 @@
 const initialCards = [
   {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    name: 'Абхазия',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/abkhazia.jpg?raw=true'
   },
   {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    name: 'Озеро Рица',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/ozero-ritsa.jpg?raw=true'
   },
   {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    name: 'Элиста',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/elista.jpg?raw=true'
   },
   {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    name: 'Лазаревское',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/lazarevskoe.jpg?raw=true'
   },
   {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    name: 'Косино',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/kosino.jpg?raw=true'
   },
   {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    name: 'Тебердинский заповедник',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/teberinskiy-zapovednik.jpg?raw=true'
   }
 ];
 
@@ -47,14 +47,14 @@ const renderCard = (element) => {
 
  renderCards();
 
- const editButton = document.querySelector('.profile__edit-button');
- const popup = document.querySelector('.popup');
- const closeButton = document.querySelector('.popup__close-button');
- let formElement = document.querySelector('.popup__container');
- let nameInput = document.querySelector('.popup__field_name');
- let jobInput = document.querySelector('.popup__field_job');
- let profileName = document.querySelector('.profile__name');
- let profilejob = document.querySelector('.profile__job');
+const editButton = document.querySelector('.profile__edit-button');
+const popup = document.querySelector('.popup');
+const closeButton = document.querySelector('.popup__close-button');
+let formElement = document.querySelector('.popup__container');
+let nameInput = document.querySelector('.popup__field_name');
+let jobInput = document.querySelector('.popup__field_job');
+let profileName = document.querySelector('.profile__name');
+let profilejob = document.querySelector('.profile__job');
 
 function popupOpen(evt) {
   evt.preventDefault();
@@ -83,3 +83,23 @@ editButton.addEventListener('click', popupOpen);
 closeButton.addEventListener('click', popupClose);
 popup.addEventListener('click', popupAreaClose);
 formElement.addEventListener('submit', formSubmitHandler);
+
+const addButton = document.querySelector('.profile__add-button');
+const popupCards = document.querySelector('.popup_cards');
+const closeButtonCards = document.querySelector('.popup__close-button_cards');
+
+addButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  popupCards.classList.add('popup_opened');
+});
+
+closeButtonCards.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  popupCards.classList.remove('popup_opened');
+});
+
+popupCards.addEventListener('click', (evt) => {
+  if (evt.target === evt.currentTarget) {
+    popupCards.classList.remove('popup_opened');
+  };
+});
