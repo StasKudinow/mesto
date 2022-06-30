@@ -13,8 +13,3 @@
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
-
-.elements__button:active {
-  background-image: url(../../../images/like-active.svg);
-  opacity: 1;
-}

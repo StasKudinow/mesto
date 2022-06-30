@@ -25,54 +25,21 @@
         <button class="profile__add-button"></button>
       </section>
       <section class="elements">
-        <div class="elements__card">
-          <img class="elements__image" src="./images/abkhazia.jpg" alt="Абхазия">
-          <button class="elements__trash"></button>
-          <div class="elements__title">
-            <h2 class="elements__name elements__name_text-hidden">Абхазия</h2>
-            <button class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__card">
-          <img class="elements__image" src="./images/ozero-ritsa.jpg" alt="Озеро Рица">
-          <div class="elements__title">
-            <h2 class="elements__name elements__name_text-hidden">Озеро Рица</h2>
-            <button class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__card">
-          <img class="elements__image" src="./images/elista.jpg" alt="Элиста">
-          <div class="elements__title">
-            <h2 class="elements__name elements__name_text-hidden">Элиста</h2>
-            <button class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__card">
-          <img class="elements__image" src="./images/lazarevskoe.jpg" alt="Лазаревское">
-          <div class="elements__title">
-            <h2 class="elements__name elements__name_text-hidden">Лазаревское</h2>
-            <button class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__card">
-          <img class="elements__image" src="./images/kosino.jpg" alt="Косино">
-          <div class="elements__title">
-            <h2 class="elements__name elements__name_text-hidden">Косино</h2>
-            <button class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__card">
-          <img class="elements__image" src="./images/teberinskiy-zapovednik.jpg" alt="Тебердинский заповедник">
-          <div class="elements__title">
-            <h2 class="elements__name elements__name_text-hidden">Тебердинский заповедник</h2>
-            <button class="elements__button"></button>
-          </div>
-        </div>
       </section>
     </main>
     <footer class="footer">
-      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+      <p class="footer__copyright">&copy; 2022 Stas Kudinov</p>
     </footer>
+    <template class="card-template">
+      <div class="elements__card">
+        <img class="elements__image">
+        <button class="elements__trash"></button>
+        <div class="elements__title">
+          <h2 class="elements__name elements__name_text-hidden"></h2>
+          <button class="elements__button"></button>
+        </div>
+      </div>
+    </template>
     <div class="popup">
       <form class="popup__container">
         <button class="popup__close-button"></button>
@@ -81,6 +48,22 @@
         <input class="popup__field popup__field_job" type="text" name="job" value="Исследователь океана">
         <button class="popup__save-button">Сохранить</button>
       </form>
+    </div>
+    <div class="popup popup_cards">
+      <form class="popup__container popup__container_cards">
+        <button class="popup__close-button popup__close-button_cards"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <input class="popup__field popup__field_cards_name" type="text" placeholder="Название" name="title">
+        <input class="popup__field popup__field_cards_link" type="url" placeholder="Ссылка на картинку" name="link">
+        <button class="popup__save-button">Создать</button>
+      </form>
+    </div>
+    <div class="popup popup_show">
+      <div class="popup-show__container">
+        <button class="popup__close-button popup__close-button_show"></button>
+        <img class="popup-show__image">
+        <p class="popup-show__title"></p>
+      </div>
     </div>
   </div>
   <script src="./scripts/index.js"></script>
