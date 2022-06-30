@@ -64,7 +64,7 @@ const renderCard = (element) => {
     evt.preventDefault();
     popupShow.classList.add('popup_opened');
     showImage.src = evt.target.src;
-    // showTitle.textContent = evt.target.textContent;
+    showTitle.textContent = evt.target.closest('.elements__card').textContent;
   };
 
   function popupCloseShow (evt) {
