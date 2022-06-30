@@ -32,7 +32,7 @@
 
     <template class="card-template">
       <div class="elements__card">
-        <img class="elements__image" src="" alt="">
+        <img class="elements__image">
         <button class="elements__trash"></button>
         <div class="elements__title">
           <h2 class="elements__name elements__name_text-hidden"></h2>
@@ -55,8 +55,15 @@
         <h2 class="popup__title">Новое место</h2>
         <input class="popup__field popup__field_cards_name" type="text" placeholder="Название" name="title">
         <input class="popup__field popup__field_cards_link" type="url" placeholder="Ссылка на картинку" name="link">
-        <button class="popup__save-button popup__save-button_cards">Создать</button>
+        <button class="popup__save-button">Создать</button>
       </form>
+    </div>
+    <div class="popup popup_show">
+      <div class="popup-show__container">
+        <button class="popup__close-button popup__close-button_show"></button>
+        <img class="popup-show__image">
+        <p class="popup-show__title"></p>
+      </div>
     </div>
   </div>
   <script src="./scripts/index.js"></script>

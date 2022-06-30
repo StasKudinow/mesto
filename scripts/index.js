@@ -25,46 +25,66 @@ const initialCards = [
   }
 ];
 
+
+// логика отрисовки карточек
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('.card-template').content;
-let formElementCards = document.querySelector('.popup__container_cards');
-let cardsNameInput = document.querySelector('.popup__field_cards_name');
-let cardsLinkInput = document.querySelector('.popup__field_cards_link');
 
 const renderCards = () => {
   initialCards.forEach(renderCard);
 };
 
+// функция отрисовки карточки
 const renderCard = (element) => {
   const elementsCard = cardTemplate.querySelector('.elements__card').cloneNode(true);
   elementsCard.querySelector('.elements__image').src = element.link;
   elementsCard.querySelector('.elements__image').alt = element.name;
   elementsCard.querySelector('.elements__name').textContent = element.name;
 
+  // кнопка лайка
   elementsCard.querySelector('.elements__button').addEventListener('click', function(evt) {
     evt.target.classList.toggle('elements__button_active');
   });
 
-  const trashButton = elementsCard.querySelector('.elements__trash');
-  trashButton.addEventListener('click', cardHandlerDelete);
+  // кнопка удаления
+  elementsCard.querySelector('.elements__trash').addEventListener('click', function(evt) {
+    evt.target.closest('.elements__card').remove();
+  });
 
   cardsContainer.prepend(elementsCard);
+
+  // логика фуллскрин попапа
+  const popupShow = document.querySelector('.popup_show');
+  const imageButton = elementsCard.querySelector('.elements__image');
+  const closeButtonShow = document.querySelector('.popup__close-button_show');
+  const showImage = document.querySelector('.popup-show__image');
+  const showTitle = document.querySelector('.popup-show__title')
+
+  function popupOpenShow (evt) {
+    evt.preventDefault();
+    popupShow.classList.add('popup_opened');
+    showImage.src = evt.target.src;
+    // showTitle.textContent = evt.target.textContent;
+  };
+
+  function popupCloseShow (evt) {
+    evt.preventDefault();
+    popupShow.classList.remove('popup_opened');
+  };
+
+  // лиснеры фуллскрин попапа
+  imageButton.addEventListener('click', popupOpenShow);
+  closeButtonShow.addEventListener('click', popupCloseShow);
+  popupShow.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      popupShow.classList.remove('popup_opened');
+    };
+  });
 };
-
-const cardHandlerSubmit = (evt) => {
-  evt.preventDefault();
-  renderCard({name:cardsNameInput.value, link:cardsLinkInput.value});
-  popupCloseCards(evt);
-}
-
-const cardHandlerDelete = (evt) => {
-  evt.target.closest('.elements__card').remove();
-}
-
-formElementCards.addEventListener('submit', cardHandlerSubmit);
 
 renderCards();
 
+// логика эдит-попапа
 const editButton = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
 const closeButton = document.querySelector('.popup__close-button');
@@ -90,6 +110,7 @@ function popupAreaClose(evt) {
   };
 };
 
+// функция сабмита эдит-попапа
 function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -97,27 +118,41 @@ function formSubmitHandler(evt) {
   popupClose(evt);
 };
 
+
+// лиснеры эдит-попапа
 editButton.addEventListener('click', popupOpen);
 closeButton.addEventListener('click', popupClose);
 popup.addEventListener('click', popupAreaClose);
 formElement.addEventListener('submit', formSubmitHandler);
 
-
+// логика эдд-попапа
 const addButton = document.querySelector('.profile__add-button');
 const popupCards = document.querySelector('.popup_cards');
 const closeButtonCards = document.querySelector('.popup__close-button_cards');
+let formElementCards = document.querySelector('.popup__container_cards');
+let cardsNameInput = document.querySelector('.popup__field_cards_name');
+let cardsLinkInput = document.querySelector('.popup__field_cards_link');
 
 
 function popupOpenCards (evt) {
   evt.preventDefault();
   popupCards.classList.add('popup_opened');
-}
+};
 
 function popupCloseCards (evt) {
   evt.preventDefault();
   popupCards.classList.remove('popup_opened');
-}
+};
 
+
+// функция сабмита эдд-попапа
+const cardHandlerSubmit = (evt) => {
+  evt.preventDefault();
+  renderCard({name:cardsNameInput.value, link:cardsLinkInput.value});
+  popupCloseCards(evt);
+};
+
+// лиснеры эдд-попапа
 addButton.addEventListener('click', popupOpenCards);
 closeButtonCards.addEventListener('click', popupCloseCards);
 popupCards.addEventListener('click', (evt) => {
@@ -125,3 +160,4 @@ popupCards.addEventListener('click', (evt) => {
     popupCards.classList.remove('popup_opened');
   };
 });
+formElementCards.addEventListener('submit', cardHandlerSubmit);
