@@ -88,11 +88,11 @@ renderCards();
 const editButton = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
 const closeButton = document.querySelector('.popup__close-button');
-let formElement = document.querySelector('.popup__container');
-let nameInput = document.querySelector('.popup__field_name');
-let jobInput = document.querySelector('.popup__field_job');
-let profileName = document.querySelector('.profile__name');
-let profilejob = document.querySelector('.profile__job');
+const formElement = document.querySelector('.popup__container');
+const nameInput = document.querySelector('.popup__field_name');
+const jobInput = document.querySelector('.popup__field_job');
+const profileName = document.querySelector('.profile__name');
+const profilejob = document.querySelector('.profile__job');
 
 function popupOpen(evt) {
   evt.preventDefault();
@@ -129,9 +129,9 @@ formElement.addEventListener('submit', formSubmitHandler);
 const addButton = document.querySelector('.profile__add-button');
 const popupCards = document.querySelector('.popup_cards');
 const closeButtonCards = document.querySelector('.popup__close-button_cards');
-let formElementCards = document.querySelector('.popup__container_cards');
-let cardsNameInput = document.querySelector('.popup__field_cards_name');
-let cardsLinkInput = document.querySelector('.popup__field_cards_link');
+const formElementCards = document.querySelector('.popup__container_cards');
+const cardsNameInput = document.querySelector('.popup__field_cards_name');
+const cardsLinkInput = document.querySelector('.popup__field_cards_link');
 
 
 function popupOpenCards (evt) {
