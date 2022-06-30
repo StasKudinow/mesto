@@ -45,6 +45,9 @@ const renderCard = (element) => {
     evt.target.classList.toggle('elements__button_active');
   });
 
+  const trashButton = elementsCard.querySelector('.elements__trash');
+  trashButton.addEventListener('click', cardHandlerDelete);
+
   cardsContainer.prepend(elementsCard);
 };
 
@@ -52,6 +55,10 @@ const cardHandlerSubmit = (evt) => {
   evt.preventDefault();
   renderCard({name:cardsNameInput.value, link:cardsLinkInput.value});
   popupCloseCards(evt);
+}
+
+const cardHandlerDelete = (evt) => {
+  evt.target.closest('.elements__card').remove();
 }
 
 formElementCards.addEventListener('submit', cardHandlerSubmit);
