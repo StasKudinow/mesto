@@ -35,6 +35,6 @@
 @import url(../blocks/popup/__field/_cards_name/popup__field_cards_name.css);
 @import url(../blocks/popup/__field/_cards_link/popup__field_cards_link.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
-@import url(../blocks/popup-show/__container/popup-show__container.css);
-@import url(../blocks/popup-show/__image/popup-show__image.css);
-@import url(../blocks/popup-show/__title/popup-show__title.css);
+@import url(../blocks/popup/__show-container/popup__show-container.css);
+@import url(../blocks/popup/__image/popup__image.css);
+@import url(../blocks/popup/__show-title/popup__show-title.css);

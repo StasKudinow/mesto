@@ -57,8 +57,8 @@ const renderCard = (element) => {
   const popupShow = document.querySelector('.popup_show');
   const imageButton = elementsCard.querySelector('.elements__image');
   const closeButtonShow = document.querySelector('.popup__close-button_show');
-  const showImage = document.querySelector('.popup-show__image');
-  const showTitle = document.querySelector('.popup-show__title')
+  const showImage = document.querySelector('.popup__image');
+  const showTitle = document.querySelector('.popup__show-title');
 
   function popupOpenShow (evt) {
     evt.preventDefault();
