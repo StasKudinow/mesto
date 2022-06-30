@@ -1,38 +1,41 @@
 const initialCards = [
   {
-    name: 'Абхазия',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/abkhazia.jpg?raw=true'
-  },
-  {
-    name: 'Озеро Рица',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/ozero-ritsa.jpg?raw=true'
-  },
-  {
-    name: 'Элиста',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/elista.jpg?raw=true'
-  },
-  {
-    name: 'Лазаревское',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/lazarevskoe.jpg?raw=true'
+    name: 'Тебердинский заповедник',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/teberinskiy-zapovednik.jpg?raw=true'
   },
   {
     name: 'Косино',
     link: 'https://github.com/StasPanda/mesto/blob/develop/images/kosino.jpg?raw=true'
   },
   {
-    name: 'Тебердинский заповедник',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/teberinskiy-zapovednik.jpg?raw=true'
+    name: 'Лазаревское',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/lazarevskoe.jpg?raw=true'
+  },
+  {
+    name: 'Элиста',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/elista.jpg?raw=true'
+  },
+  {
+    name: 'Озеро Рица',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/ozero-ritsa.jpg?raw=true'
+  },
+  {
+    name: 'Абхазия',
+    link: 'https://github.com/StasPanda/mesto/blob/develop/images/abkhazia.jpg?raw=true'
   }
 ];
 
 const cardsContainer = document.querySelector('.elements');
+const cardTemplate = document.querySelector('.card-template').content;
+let formElementCards = document.querySelector('.popup__container_cards');
+let cardsNameInput = document.querySelector('.popup__field_cards_name');
+let cardsLinkInput = document.querySelector('.popup__field_cards_link');
 
 const renderCards = () => {
   initialCards.forEach(renderCard);
 };
 
 const renderCard = (element) => {
-  const cardTemplate = document.querySelector('.card-template').content;
   const elementsCard = cardTemplate.querySelector('.elements__card').cloneNode(true);
   elementsCard.querySelector('.elements__image').src = element.link;
   elementsCard.querySelector('.elements__image').alt = element.name;
@@ -42,10 +45,18 @@ const renderCard = (element) => {
     evt.target.classList.toggle('elements__button_active');
   });
 
-  cardsContainer.append(elementsCard);
+  cardsContainer.prepend(elementsCard);
 };
 
- renderCards();
+const cardHandlerSubmit = (evt) => {
+  evt.preventDefault();
+  renderCard({name:cardsNameInput.value, link:cardsLinkInput.value});
+  popupCloseCards(evt);
+}
+
+formElementCards.addEventListener('submit', cardHandlerSubmit);
+
+renderCards();
 
 const editButton = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
@@ -84,20 +95,24 @@ closeButton.addEventListener('click', popupClose);
 popup.addEventListener('click', popupAreaClose);
 formElement.addEventListener('submit', formSubmitHandler);
 
+
 const addButton = document.querySelector('.profile__add-button');
 const popupCards = document.querySelector('.popup_cards');
 const closeButtonCards = document.querySelector('.popup__close-button_cards');
 
-addButton.addEventListener('click', (evt) => {
+
+function popupOpenCards (evt) {
   evt.preventDefault();
   popupCards.classList.add('popup_opened');
-});
+}
 
-closeButtonCards.addEventListener('click', (evt) => {
+function popupCloseCards (evt) {
   evt.preventDefault();
   popupCards.classList.remove('popup_opened');
-});
+}
 
+addButton.addEventListener('click', popupOpenCards);
+closeButtonCards.addEventListener('click', popupCloseCards);
 popupCards.addEventListener('click', (evt) => {
   if (evt.target === evt.currentTarget) {
     popupCards.classList.remove('popup_opened');

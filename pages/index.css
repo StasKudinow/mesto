@@ -32,4 +32,6 @@
 @import url(../blocks/popup/__field/popup__field.css);
 @import url(../blocks/popup/__field/_name/popup__field_name.css);
 @import url(../blocks/popup/__field/_job/popup__field_job.css);
+@import url(../blocks/popup/__field/_cards_name/popup__field_cards_name.css);
+@import url(../blocks/popup/__field/_cards_link/popup__field_cards_link.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
