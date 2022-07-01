@@ -1,6 +1,5 @@
 // константы
 // попапы
-const popup = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_profile');
 const popupCards = document.querySelector('.popup_cards');
 const popupShow = document.querySelector('.popup_show');
@@ -79,9 +78,8 @@ function createCard(item) {
   });
 
   //функция вызова фуллскрин попапа
-  function openPopupShow (evt) {
-    evt.preventDefault();
-    popupShow.classList.add('popup_opened');
+  function openPopupShow () {
+    openPopup(popupShow);
     showImage.src = item.link;
     showImage.alt = item.name;
     showTitle.textContent = item.name;
@@ -92,6 +90,7 @@ function createCard(item) {
   return cardElement;
 };
 
+// добавление в DOM
 const renderCard = (element) => {
   const elementsCard = createCard(element)
   cardsContainer.prepend(elementsCard);
@@ -113,10 +112,7 @@ addButton.addEventListener('click', () => {openPopup(popupCards)});
 
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
-  button.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    closePopup(popup);
-  });
+  button.addEventListener('click', () => closePopup(popup));
 });
 
 // функция сабмита эдит-попапа
