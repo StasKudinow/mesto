@@ -9,10 +9,10 @@ const cardsForm = document.querySelector('.popup__container_cards');
 // крестик закрытия
 const closeButtons = document.querySelectorAll('.popup__close-button');
 // инпуты
-const profileNameInput = document.querySelector('.popup__field_profile_name');
-const profileJobInput = document.querySelector('.popup__field_profile_job');
-const cardsNameInput = document.querySelector('.popup__field_cards_name');
-const cardsLinkInput = document.querySelector('.popup__field_cards_link');
+const profileNameInput = document.querySelector('.popup__input_profile_name');
+const profileJobInput = document.querySelector('.popup__input_profile_job');
+const cardsNameInput = document.querySelector('.popup__input_cards_name');
+const cardsLinkInput = document.querySelector('.popup__input_cards_link');
 // фуллскрин элементы
 const showImage = document.querySelector('.popup__show-image');
 const showTitle = document.querySelector('.popup__show-title');

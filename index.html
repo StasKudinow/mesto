@@ -41,22 +41,30 @@
       </div>
     </template>
     <div class="popup popup_profile">
-      <form class="popup__container popup__container_profile">
+      <div class="popup__container popup__container_profile">
         <button class="popup__close-button" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__field popup__field_profile_name" type="text" name="name" value="Жак-Ив Кусто">
-        <input class="popup__field popup__field_profile_job" type="text" name="job" value="Исследователь океана">
-        <button class="popup__save-button">Сохранить</button>
-      </form>
+        <form class="popup__form popup__form_profile">
+          <input class="popup__input popup__input_profile_name" id="profile-name" type="text" name="name" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+          <span class="error" id="profile-name-error"></span>
+          <input class="popup__input popup__input_profile_job" id="profile-job" type="text" name="job" value="Исследователь океана" minlength="2" maxlength="200" required>
+          <span class="error" id="profile-job-error"></span>
+          <button class="popup__button popup__button_disabled" type="submit">Сохранить</button>
+        </form>
+      </div>
     </div>
     <div class="popup popup_cards">
-      <form class="popup__container popup__container_cards">
+      <div class="popup__container popup__container_cards">
         <button class="popup__close-button" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__field popup__field_cards_name" type="text" placeholder="Название" name="title">
-        <input class="popup__field popup__field_cards_link" type="url" placeholder="Ссылка на картинку" name="link">
-        <button class="popup__save-button">Создать</button>
-      </form>
+        <form class="popup__form popup__form_cards">
+          <input class="popup__input popup__input_cards_name" id="cards-name" type="text" placeholder="Название" name="title" minlength="2" maxlength="30" required>
+          <span class="error" id="cards-name-error"></span>
+          <input class="popup__input popup__input_cards_link" id="cards-link" type="url" placeholder="Ссылка на картинку" name="link" required>
+          <span class="error" id="cards-link-error"></span>
+          <button class="popup__button popup__button_disabled" type="submit">Создать</button>
+        </form>
+      </div>
     </div>
     <div class="popup popup_show">
       <div class="popup__show-container">
