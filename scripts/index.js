@@ -3,6 +3,7 @@
 const popupProfile = document.querySelector('.popup_profile');
 const popupCards = document.querySelector('.popup_cards');
 const popupShow = document.querySelector('.popup_show');
+const popups = document.querySelectorAll('.popup');
 // формы
 const profileForm = document.querySelector('.popup__container_profile');
 const cardsForm = document.querySelector('.popup__container_cards');
@@ -101,6 +102,7 @@ renderCards();
 // открытие/закрытие попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
 };
 
 function closePopup(popup) {
@@ -110,10 +112,31 @@ function closePopup(popup) {
 editButton.addEventListener('click', () => {openPopup(popupProfile)});
 addButton.addEventListener('click', () => {openPopup(popupCards)});
 
+//закрытие на крестик
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+
+// закрытие на оверлей
+popups.forEach((overlay) => {
+  const popup = overlay.closest('.popup');
+  overlay.addEventListener('click', (evt) => {
+    if(evt.target === evt.currentTarget) {
+      closePopup(popup);
+    };
+  });
+});
+
+//закрытие на Esc
+function closePopupEsc (evt) {
+  if(evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+    document.removeEventListener('keydown', closePopupEsc);
+  };
+};
+
 
 // функция сабмита эдит-попапа
 function handleProfileFormSubmit(evt) {
