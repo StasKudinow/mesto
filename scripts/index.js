@@ -2,7 +2,7 @@
 // попапы
 const popupProfile = document.querySelector('.popup_profile');
 const popupCards = document.querySelector('.popup_cards');
-const popupShow = document.querySelector('.popup__show');
+const popupShow = document.querySelector('.popup_show');
 const popups = document.querySelectorAll('.popup');
 // формы
 const profileForm = document.querySelector('.popup__container_profile');
