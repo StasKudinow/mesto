@@ -1,3 +1,4 @@
+// функция показа ошибок инпута
 const showInputError = (formElement, inputElement, errorMessage, settings) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(settings.inputErrorClass);
@@ -5,6 +6,7 @@ const showInputError = (formElement, inputElement, errorMessage, settings) => {
   errorElement.classList.add(settings.errorClass);
 };
 
+// функция скрытия ошибок инпута
 const hideInputError = (formElement, inputElement, settings) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(settings.inputErrorClass);
@@ -12,6 +14,8 @@ const hideInputError = (formElement, inputElement, settings) => {
   errorElement.textContent = '';
 };
 
+
+// функция проверки на валидность
 const checkInputValidity = (formElement, inputElement, settings) => {
   if(!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage, settings);
@@ -20,6 +24,8 @@ const checkInputValidity = (formElement, inputElement, settings) => {
   };
 };
 
+
+// установка слушателей для инпутов
 const setEventListeners = (formElement, settings) => {
   const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
   const buttonElement = formElement.querySelector(settings.submitButtonSelector);
@@ -32,22 +38,23 @@ const setEventListeners = (formElement, settings) => {
   });
 };
 
+// присвоение слушателей инпутов для форм
 const enableValidation = (settings) => {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
     setEventListeners(formElement, settings);
   });
 };
 
+// проверка на валидность для инпутов
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
+
+// функция активации/дизактивации кнопки сабмита
 const toggleButtonState = (inputList, buttonElement, settings) => {
   if(hasInvalidInput(inputList)) {
     buttonElement.classList.add(settings.inactiveButtonClass);
@@ -58,6 +65,7 @@ const toggleButtonState = (inputList, buttonElement, settings) => {
   };
 };
 
+// селекторы и классы для валидации
 enableValidation({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
