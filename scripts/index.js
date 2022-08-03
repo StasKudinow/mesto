@@ -1,8 +1,10 @@
+import { Card } from './Card.js';
+
 // константы
 // попапы
 const popupProfile = document.querySelector('.popup_profile');
 const popupCards = document.querySelector('.popup_cards');
-const popupShow = document.querySelector('.popup_show');
+// const popupShow = document.querySelector('.popup_show');
 const popups = document.querySelectorAll('.popup');
 // формы
 const profileForm = document.querySelector('.popup__container_profile');
@@ -13,8 +15,8 @@ const profileJobInput = document.querySelector('.popup__input_profile_job');
 const cardsNameInput = document.querySelector('.popup__input_cards_name');
 const cardsLinkInput = document.querySelector('.popup__input_cards_link');
 // фуллскрин элементы
-const imageShow = document.querySelector('.popup__show-image');
-const titleShow = document.querySelector('.popup__show-title');
+// const imageShow = document.querySelector('.popup__show-image');
+// const titleShow = document.querySelector('.popup__show-title');
 // кнопки
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -22,9 +24,11 @@ const buttonAdd = document.querySelector('.profile__add-button');
 const profileName = document.querySelector('.profile__name');
 const profilejob = document.querySelector('.profile__job');
 // отрисовка карточки
-const cardsContainer = document.querySelector('.elements');
-const cardTemplate = document.querySelector('.card-template').content;
+// const cardsContainer = document.querySelector('.elements');
+// const cardTemplate = document.querySelector('.card-template').content;
 
+
+// Изначальный массив карточек.
 const initialCards = [
   {
     name: 'Тебердинский заповедник',
@@ -52,53 +56,25 @@ const initialCards = [
   }
 ];
 
+// Отрисовка экземпляра карточки.
+const renderCard = (item) => {
+  const card = new Card(item, '.card-template');
+  const cardElement = card.generateCard();
 
-// функция отрисовки карточки
-const renderCards = () => {
-  initialCards.forEach(renderCard);
+  document.querySelector('.elements').prepend(cardElement);
 };
 
-function createCard(item) {
-  const cardElement = cardTemplate.querySelector('.elements__card').cloneNode(true);
-  const cardElementImage = cardElement.querySelector('.elements__image');
-  const cardElementName = cardElement.querySelector('.elements__name');
-  cardElementImage.src = item.link;
-  cardElementImage.alt = item.name;
-  cardElementName.textContent = item.name;
-
-  // кнопка лайка
-  cardElement.querySelector('.elements__button').addEventListener('click', function(evt) {
-    evt.target.classList.toggle('elements__button_active');
+// Отрисовка изначального массива карточек.
+const renderinitialCards = () => {
+  initialCards.forEach((element) => {
+    renderCard(element);
   });
-
-  // кнопка удаления
-  cardElement.querySelector('.elements__trash').addEventListener('click', function(evt) {
-    evt.target.closest('.elements__card').remove();
-  });
-
-  //функция вызова фуллскрин попапа
-  function openPopupShow () {
-    openPopup(popupShow);
-    imageShow.src = item.link;
-    imageShow.alt = item.name;
-    titleShow.textContent = item.name;
-  };
-
-  cardElementImage.addEventListener('click', openPopupShow);
-
-  return cardElement;
 };
+renderinitialCards();
 
-// добавление в DOM
-const renderCard = (element) => {
-  const elementsCard = createCard(element)
-  cardsContainer.prepend(elementsCard);
-};
-
-renderCards();
 
 // открытие/закрытие попапов
-function openPopup(popup) {
+  export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 };
@@ -120,7 +96,7 @@ popups.forEach((popup) => {
   });
 });
 
-//закрытие на Esc
+// закрытие на Esc
 function closePopupEsc (evt) {
   if(evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
@@ -139,7 +115,7 @@ function handleProfileFormSubmit(evt) {
 
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
-//функция сабмита эдд-попапа
+// функция сабмита эдд-попапа
 const handlerCardFormSubmit = (evt) => {
   evt.preventDefault();
   renderCard({name:cardsNameInput.value, link:cardsLinkInput.value});
