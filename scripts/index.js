@@ -1,32 +1,30 @@
 import { Card } from './Card.js';
+import { settings, FormValidator } from './FormValidator.js'
 
-// константы
-// попапы
+// Константы:
+
+// Попапы.
 const popupProfile = document.querySelector('.popup_profile');
 const popupCards = document.querySelector('.popup_cards');
-// const popupShow = document.querySelector('.popup_show');
 const popups = document.querySelectorAll('.popup');
-// формы
+
+// Формы.
 const profileForm = document.querySelector('.popup__container_profile');
 const cardsForm = document.querySelector('.popup__container_cards');
-// инпуты
+
+// Инпуты.
 const profileNameInput = document.querySelector('.popup__input_profile_name');
 const profileJobInput = document.querySelector('.popup__input_profile_job');
 const cardsNameInput = document.querySelector('.popup__input_cards_name');
 const cardsLinkInput = document.querySelector('.popup__input_cards_link');
-// фуллскрин элементы
-// const imageShow = document.querySelector('.popup__show-image');
-// const titleShow = document.querySelector('.popup__show-title');
-// кнопки
+
+// Кнопки.
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
-// элементы профиля
+
+// Элементы профиля.
 const profileName = document.querySelector('.profile__name');
 const profilejob = document.querySelector('.profile__job');
-// отрисовка карточки
-// const cardsContainer = document.querySelector('.elements');
-// const cardTemplate = document.querySelector('.card-template').content;
-
 
 // Изначальный массив карточек.
 const initialCards = [
@@ -72,22 +70,23 @@ const renderinitialCards = () => {
 };
 renderinitialCards();
 
-
-// открытие/закрытие попапов
+// Открытие попапа.
   export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 };
 
+// Закрытие попапа.
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEsc);
 };
 
+// Лиснеры кнопок.
 buttonEdit.addEventListener('click', () => {openPopup(popupProfile)});
 buttonAdd.addEventListener('click', () => {openPopup(popupCards)});
 
-// закрытие на оверлей и крестик
+// Закрытие на оверлей и крестик.
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if(evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
@@ -96,7 +95,7 @@ popups.forEach((popup) => {
   });
 });
 
-// закрытие на Esc
+// Закрытие на Esc.
 function closePopupEsc (evt) {
   if(evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
@@ -104,8 +103,7 @@ function closePopupEsc (evt) {
   };
 };
 
-
-// функция сабмита эдит-попапа
+// Функция сабмита эдит-попапа.
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = profileNameInput.value;
@@ -115,7 +113,7 @@ function handleProfileFormSubmit(evt) {
 
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
-// функция сабмита эдд-попапа
+// Функция сабмита эдд-попапа.
 const handlerCardFormSubmit = (evt) => {
   evt.preventDefault();
   renderCard({name:cardsNameInput.value, link:cardsLinkInput.value});
@@ -129,3 +127,16 @@ const handlerCardFormSubmit = (evt) => {
 };
 
 cardsForm.addEventListener('submit', handlerCardFormSubmit);
+
+// Получение массива форм.
+const getForms = (settings) => {
+  return Array.from(document.querySelectorAll(settings.formSelector));
+};
+
+const forms = getForms(settings);
+
+// Проверка валидации экземпляров форм.
+forms.forEach((formElement) => {
+  const formValidator = new FormValidator(settings, formElement);
+  formValidator.enableValidation();
+});
