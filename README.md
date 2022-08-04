@@ -12,7 +12,8 @@
 * Анимация;
 * Media Queries для адаптивности сайта для разныx устройств;
 * Реализация попапов с помощью JS;
-* Валидация форм.
+* Валидация форм;
+* ООП.
 
 ### __URL:__
-https://staspanda.github.io/mesto/
+https://staskudinow.github.io/mesto/
