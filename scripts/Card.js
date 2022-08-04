@@ -7,6 +7,7 @@ export class Card {
     this._templateSelector = templateSelector;
   }
 
+  // Получение template-элемента.
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
@@ -17,6 +18,7 @@ export class Card {
     return cardElement;
   }
 
+  // Создание карточки.
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
