@@ -1,26 +1,29 @@
-import { settings } from "./constants.js";
-
 export class FormValidator {
   constructor(settings, formElement) {
-    this._settings = settings;
+    this._formSelector = settings.formSelector;
+    this._inputSelector = settings.inputSelector;
+    this._submitButtonSelector = settings.submitButtonSelector;
+    this._inactiveButtonClass = settings.inactiveButtonClass;
+    this._inputErrorClass = settings.inputErrorClass;
+    this._errorClass = settings.errorClass;
     this._formElement = formElement;
-    this._inputList = Array.from(this._formElement.querySelectorAll(settings.inputSelector));
-    this._buttonElement = this._formElement.querySelector(settings.submitButtonSelector);
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
   }
 
   // Функция показа ошибок инпутов.
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(settings.inputErrorClass);
+    inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(settings.errorClass);
+    errorElement.classList.add(this._errorClass);
   }
 
   // Функция скрытия ошибок инпутов.
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(settings.inputErrorClass);
-    errorElement.classList.remove(settings.errorClass);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
   }
 
@@ -64,10 +67,10 @@ export class FormValidator {
   // Управление кнопкой сабмита.
   _toggleButtonState() {
     if(this._hasInvalidInput()) {
-      this._buttonElement.classList.add(settings.inactiveButtonClass);
+      this._buttonElement.classList.add(this._inactiveButtonClass);
       this._buttonElement.setAttribute('disabled', true);
     } else {
-      this._buttonElement.classList.remove(settings.inactiveButtonClass);
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.removeAttribute('disabled', true);
     };
   }

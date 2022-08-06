@@ -48,19 +48,10 @@ export class Card {
       this._handleOpenPopup(this._name, this._link);
     });
 
-    // Обертка кнопки лайка, чтобы не потерять контекст this в коллбэке.
-    const wrapLikeButton = (evt) => {
-      this._handleLikeButton(evt);
-    };
-
     // Лиснер кнопки лайка.
-    this._element.querySelector('.elements__button').addEventListener('click', wrapLikeButton);
+    this._element.querySelector('.elements__button').addEventListener('click', (evt) => this._handleLikeButton(evt));
 
-    // Обертка кнопки удаления, чтобы не потерять контекст this в коллбэке.
-    const wrapTrashButton = () => {
-      this._handleTrashButton();
-    };
     // Лиснер кнопки удаления.
-    this._element.querySelector('.elements__trash').addEventListener('click', wrapTrashButton);
+    this._element.querySelector('.elements__trash').addEventListener('click', () => this._handleTrashButton());
   }
 }
