@@ -5,18 +5,20 @@ import { settings, initialCards, cardContainer, popupProfile,
   buttonAdd, profileName, profilejob,
   popupShow, imageShow, titleShow } from '../utils/constants.js';
 
+import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import { Card } from '../components/Card.js';
-import { FormValidator } from '../components/FormValidator.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import FormValidator from '../components/FormValidator.js';
+import UserInfo from '../components/UserInfo.js';
 
 // Создание карточек.
 const renderinitialCards = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = new Card({
-      data: item, 
+      data: item,
       handleCardClick: () => {
         const newPopupWithImage = new PopupWithImage(popupShow);
         newPopupWithImage.open(item.name, item.link);
@@ -34,6 +36,41 @@ cardContainer);
 
 renderinitialCards.renderitems();
 
+const profilePopupWithForm = new PopupWithForm({
+  popupSelector: popupProfile,
+  handleFormSubmit: () => {
+    profileName.textContent = profileNameInput.value;
+    profilejob.textContent = profileJobInput.value;
+
+    profilePopupWithForm.close();
+    profileValidation.resetValidation();
+  }
+});
+profilePopupWithForm.setEventListeners();
+
+const cardsPopupWithForm = new PopupWithForm({
+  popupSelector: popupCards,
+  handleFormSubmit: (item) => {
+    const card = new Card({
+      data: item,
+      handleCardClick: () => {
+        const newPopupWithImage = new PopupWithImage(popupShow);
+        newPopupWithImage.open(item.name, item.link);
+        newPopupWithImage.setEventListeners();
+      }
+    },
+    '.card-template');
+
+    const cardElement = card.generateCard();
+
+    renderinitialCards.addItem(cardElement);
+
+    cardsPopupWithForm.close();
+    newCardValidation.resetValidation();
+  }
+});
+cardsPopupWithForm.setEventListeners();
+
 // Открытие/закрытие попапа профиля.
 const newPopupProfile = new Popup(popupProfile);
 buttonEdit.addEventListener('click', () => {
@@ -48,7 +85,11 @@ buttonAdd.addEventListener('click', () => {
   newPopupCards.setEventListeners();
 });
 
-
+// Валидация форм.
+const profileValidation = new FormValidator(settings, profileForm);
+const newCardValidation = new FormValidator(settings, cardsForm);
+profileValidation.enableValidation();
+newCardValidation.enableValidation();
 
 
 
@@ -116,32 +157,26 @@ buttonAdd.addEventListener('click', () => {
 //   };
 // };
 
-// Функция сабмита эдит-попапа.
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = profileNameInput.value;
-  profilejob.textContent = profileJobInput.value;
+// // Функция сабмита эдит-попапа.
+// function handleProfileFormSubmit(evt) {
+//   evt.preventDefault();
+//   profileName.textContent = profileNameInput.value;
+//   profilejob.textContent = profileJobInput.value;
 
-  profileValidation.resetValidation();
-  closePopup(popupProfile);
-};
+//   profileValidation.resetValidation();
+//   closePopup(popupProfile);
+// };
 
-profileForm.addEventListener('submit', handleProfileFormSubmit);
+// profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 // Функция сабмита эдд-попапа.
-const handlerCardFormSubmit = (evt) => {
-  evt.preventDefault();
-  renderCard({name:cardsNameInput.value, link:cardsLinkInput.value});
+// const handlerCardFormSubmit = (evt) => {
+//   evt.preventDefault();
+//   renderCard({name:cardsNameInput.value, link:cardsLinkInput.value});
 
-  closePopup(popupCards);
-  evt.target.reset();
-  newCardValidation.resetValidation();
-};
+//   closePopup(popupCards);
+//   evt.target.reset();
+//   newCardValidation.resetValidation();
+// };
 
-cardsForm.addEventListener('submit', handlerCardFormSubmit);
-
-// Валидация форм.
-const profileValidation = new FormValidator(settings, profileForm);
-const newCardValidation = new FormValidator(settings, cardsForm);
-profileValidation.enableValidation();
-newCardValidation.enableValidation();
+// cardsForm.addEventListener('submit', handlerCardFormSubmit);
