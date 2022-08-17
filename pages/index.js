@@ -1,9 +1,7 @@
-import { settings, initialCards, cardContainer, popupProfile,
-  popupCards, popups, profileForm,
-  cardsForm, profileNameInput, profileJobInput,
-  cardsNameInput, cardsLinkInput, buttonEdit,
-  buttonAdd, profileName, profilejob,
-  popupShow, imageShow, titleShow } from '../utils/constants.js';
+import { settings, initialCards, cardContainer,
+  popupProfile, popupCards, profileForm,
+  cardsForm, buttonEdit,buttonAdd, profileName,
+  profilejob, popupShow } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
@@ -36,11 +34,15 @@ cardContainer);
 
 renderinitialCards.renderitems();
 
+// Попап формы профиля.
+const userInfo = new UserInfo({
+  profileNameSelector: profileName,
+  profilejobSelector: profilejob });
+
 const profilePopupWithForm = new PopupWithForm({
   popupSelector: popupProfile,
-  handleFormSubmit: () => {
-    profileName.textContent = profileNameInput.value;
-    profilejob.textContent = profileJobInput.value;
+  handleFormSubmit: (data) => {
+    userInfo.setUserInfo(data);
 
     profilePopupWithForm.close();
     profileValidation.resetValidation();
@@ -48,6 +50,8 @@ const profilePopupWithForm = new PopupWithForm({
 });
 profilePopupWithForm.setEventListeners();
 
+
+// Попап формы добавления карточки.
 const cardsPopupWithForm = new PopupWithForm({
   popupSelector: popupCards,
   handleFormSubmit: (item) => {
@@ -76,6 +80,9 @@ const newPopupProfile = new Popup(popupProfile);
 buttonEdit.addEventListener('click', () => {
   newPopupProfile.open();
   newPopupProfile.setEventListeners();
+
+  const formData = userInfo.getUserInfo();
+  userInfo.setUserInfo(formData);
 });
 
 // Открытие/закрытие попапа добавления карточки.
@@ -90,6 +97,35 @@ const profileValidation = new FormValidator(settings, profileForm);
 const newCardValidation = new FormValidator(settings, cardsForm);
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

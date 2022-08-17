@@ -44,17 +44,11 @@ export const cardContainer = document.querySelector('.elements');
 // Попапы.
 export const popupProfile = document.querySelector('.popup_profile');
 export const popupCards = document.querySelector('.popup_cards');
-export const popups = document.querySelectorAll('.popup');
+export const popupShow = document.querySelector('.popup_show');
 
 // Формы.
 export const profileForm = document.querySelector('.popup__container_profile');
 export const cardsForm = document.querySelector('.popup__container_cards');
-
-// Инпуты.
-export const profileNameInput = document.querySelector('.popup__input_profile_name');
-export const profileJobInput = document.querySelector('.popup__input_profile_job');
-export const cardsNameInput = document.querySelector('.popup__input_cards_name');
-export const cardsLinkInput = document.querySelector('.popup__input_cards_link');
 
 // Кнопки.
 export const buttonEdit = document.querySelector('.profile__edit-button');
@@ -63,8 +57,3 @@ export const buttonAdd = document.querySelector('.profile__add-button');
 // Элементы профиля.
 export const profileName = document.querySelector('.profile__name');
 export const profilejob = document.querySelector('.profile__job');
-
-// Full-screen элементы.
-export const popupShow = document.querySelector('.popup_show');
-export const imageShow = document.querySelector('.popup__show-image');
-export const titleShow = document.querySelector('.popup__show-title');

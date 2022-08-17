@@ -8,6 +8,7 @@ export default class PopupWithForm extends Popup {
     this._inputList = this._element.querySelectorAll('.popup__input');
   }
 
+  // Получение массива инпутов.
   _getInputValues() {
     this._formValues = {};
     this._inputList.forEach(input => this._formValues[input.name] = input.value);
@@ -16,6 +17,7 @@ export default class PopupWithForm extends Popup {
 
   }
 
+  // Лиснер сабмита формы.
   setEventListeners() {
     super.setEventListeners();
     this._element.addEventListener('submit', (evt) => {
@@ -24,6 +26,7 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  //Закрытие попапа + сброс.
   close() {
     super.close();
     this._element.reset();
