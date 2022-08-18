@@ -53,7 +53,3 @@ export const cardsForm = document.querySelector('.popup__container_cards');
 // Кнопки.
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
-
-// Элементы профиля.
-export const profileName = document.querySelector('.profile__name');
-export const profilejob = document.querySelector('.profile__job');

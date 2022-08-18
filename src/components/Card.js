@@ -43,7 +43,6 @@ export default class Card {
   }
 
   _setEventListeners() {
-  
     // Лиснер full-screen попапа.
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
