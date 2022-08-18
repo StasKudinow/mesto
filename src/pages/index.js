@@ -6,21 +6,10 @@ import { settings, initialCards,
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
-
-
-// Экземпляры классов.
-const newPopupWithImage = new PopupWithImage('.popup_show');
-const newPopupProfile = new Popup('.popup_profile');
-const newPopupCards = new Popup('.popup_cards');
-const userInfo = new UserInfo({
-  profileNameSelector: '.profile__name',
-  profilejobSelector: '.profile__job'
-});
 
 
 // Создание экземпляра карточки.
@@ -28,8 +17,7 @@ const createCard = (item) => {
   const card = new Card({
     data: item,
     handleCardClick: () => {
-      newPopupWithImage.open(item.name, item.link);
-      newPopupWithImage.setEventListeners();
+      popupImage.open(item.name, item.link);
     }
   },
   '.card-template');
@@ -53,51 +41,58 @@ const renderInitialCards = new Section({
 renderInitialCards.renderitems();
 
 
+// Экземпляры классов.
+const popupImage = new PopupWithImage('.popup_show');
+const userInfo = new UserInfo({
+  profileNameSelector: '.profile__name',
+  profilejobSelector: '.profile__job'
+});
+
+
 // Сабмит и закрытие попапа профиля.
-const profilePopupWithForm = new PopupWithForm({
+const popupProfile = new PopupWithForm({
   popupSelector: '.popup_profile',
   handleFormSubmit: (data) => {
     userInfo.setUserInfo(data);
 
-    profilePopupWithForm.close();
+    popupProfile.close();
   }
 });
 
 
 // Сабмит и закрытие попапа добавления карточки.
-const cardsPopupWithForm = new PopupWithForm({
+const popupCards = new PopupWithForm({
   popupSelector: '.popup_cards',
   handleFormSubmit: (item) => {
     const cardElement = createCard(item);
     renderInitialCards.addItem(cardElement);
 
-    cardsPopupWithForm.close();
+    popupCards.close();
   }
 });
 
 
 // Открытие попапа профиля.
 buttonEdit.addEventListener('click', () => {
-  newPopupProfile.open();
+  popupProfile.open();
   profileValidation.resetValidation();
 
   const formData = userInfo.getUserInfo();
-  profilePopupWithForm.setInputValues(formData);
+  popupProfile.setInputValues(formData);
 });
 
 
 // Открытие попапа добавления карточки.
 buttonAdd.addEventListener('click', () => {
-  newPopupCards.open();
+  popupCards.open();
   newCardValidation.resetValidation();
 });
 
 
 // Лиснеры попапов.
-newPopupProfile.setEventListeners();
-newPopupCards.setEventListeners();
-profilePopupWithForm.setEventListeners();
-cardsPopupWithForm.setEventListeners();
+popupProfile.setEventListeners();
+popupCards.setEventListeners();
+popupImage.setEventListeners();
 
 
 // Валидация форм.
