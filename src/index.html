@@ -43,7 +43,7 @@
       <div class="popup__container popup__container_profile">
         <button class="popup__close-button" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form popup__form_profile" novalidate>
+        <form class="popup__form popup__form_profile" name="profile-form" novalidate>
           <div class="popup__field">
             <input class="popup__input popup__input_profile_name" id="profile-name" type="text" name="name" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
             <span class="profile-name-error popup__error"></span>
@@ -60,7 +60,7 @@
       <div class="popup__container popup__container_cards">
         <button class="popup__close-button" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form popup__form_cards" novalidate>
+        <form class="popup__form popup__form_cards" name="cards-form" novalidate>
           <div class="popup__field">
             <input class="popup__input popup__input_cards_name" id="cards-name" type="text" placeholder="Название" name="name" minlength="2" maxlength="30" required>
             <span class="cards-name-error popup__error"></span>

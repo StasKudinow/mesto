@@ -1,8 +1,6 @@
 import './index.css';
 
-import { settings, initialCards,
-  profileForm, cardsForm,
-  buttonEdit, buttonAdd } from '../utils/constants.js';
+import { settings, initialCards, buttonEdit, buttonAdd } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
@@ -75,7 +73,7 @@ const popupCards = new PopupWithForm({
 // Открытие попапа профиля.
 buttonEdit.addEventListener('click', () => {
   popupProfile.open();
-  profileValidation.resetValidation();
+  formValidators['profile-form'].resetValidation();
 
   const formData = userInfo.getUserInfo();
   popupProfile.setInputValues(formData);
@@ -85,7 +83,7 @@ buttonEdit.addEventListener('click', () => {
 // Открытие попапа добавления карточки.
 buttonAdd.addEventListener('click', () => {
   popupCards.open();
-  newCardValidation.resetValidation();
+  formValidators['cards-form'].resetValidation();
 });
 
 
@@ -95,8 +93,21 @@ popupCards.setEventListeners();
 popupImage.setEventListeners();
 
 
-// Валидация форм.
-const profileValidation = new FormValidator(settings, profileForm);
-const newCardValidation = new FormValidator(settings, cardsForm);
-profileValidation.enableValidation();
-newCardValidation.enableValidation();
+// Валидация форм при помощи объекта валидаторов по атрибуту 'name'.
+const formValidators = {};
+
+const enableValidation = (settings) => {
+  const formList = Array.from(document.querySelectorAll(settings.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(settings, formElement);
+    const formName = formElement.getAttribute('name');
+
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(settings);
+
+formValidators['profile-form'].enableValidation();
+formValidators['cards-form'].enableValidation();

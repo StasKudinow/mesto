@@ -36,20 +36,6 @@ export const initialCards = [
   }
 ];
 
-// Константы:
-
-// Контейнер карточек.
-export const cardContainer = document.querySelector('.elements');
-
-// Попапы.
-export const popupProfile = document.querySelector('.popup_profile');
-export const popupCards = document.querySelector('.popup_cards');
-export const popupShow = document.querySelector('.popup_show');
-
-// Формы.
-export const profileForm = document.querySelector('.popup__container_profile');
-export const cardsForm = document.querySelector('.popup__container_cards');
-
 // Кнопки.
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
