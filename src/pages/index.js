@@ -108,6 +108,3 @@ const enableValidation = (settings) => {
 };
 
 enableValidation(settings);
-
-formValidators['profile-form'].enableValidation();
-formValidators['cards-form'].enableValidation();
