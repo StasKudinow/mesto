@@ -1,6 +1,7 @@
 import './index.css';
 
-import { settings, initialCards, buttonEdit, buttonAdd } from '../utils/constants.js';
+import { settings, buttonEdit, buttonAdd,
+  profileAvatar, profileName, profileJob } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
@@ -8,6 +9,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 
 // Создание экземпляра карточки.
@@ -27,16 +29,7 @@ const createCard = (item) => {
 
 
 // Создание массива карточек + добавление в DOM.
-const renderInitialCards = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const cardElement = createCard(item);
-    renderInitialCards.addItem(cardElement);
-  }
-},
-'.elements');
 
-renderInitialCards.renderitems();
 
 
 // Экземпляры классов.
@@ -108,3 +101,65 @@ const enableValidation = (settings) => {
 };
 
 enableValidation(settings);
+
+
+
+
+
+
+const profileApi = new Api('https://nomoreparties.co/v1/cohort-49/users/me', {
+  headers: {
+    authorization:'776fa51b-f2c4-44dc-b3e7-060fea23d99a',
+    'Content-Type': 'application/json'
+  }
+});
+
+// profileApi.getData()
+//   .then((data) => {
+//     console.log(data);
+//     profileName.textContent = data.name;
+//     profileJob.textContent = data.about;
+//     profileAvatar.src = data.avatar;
+//   })
+//   .catch((err) => {
+//     console.log(`Ошибка: ${err}`);
+//   });
+
+const cardsApi = new Api('https://mesto.nomoreparties.co/v1/cohort-49/cards', {
+  headers: {
+    authorization:'776fa51b-f2c4-44dc-b3e7-060fea23d99a',
+    'Content-Type': 'application/json'
+  }
+});
+
+// cardsApi.getData()
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((err) => {
+//     console.log(`Ошибка: ${err}`);
+//   });
+
+Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
+  .then(([profileData, cardsData]) => {
+    console.log(profileData);
+    profileName.textContent = profileData.name;
+    profileJob.textContent = profileData.about;
+    profileAvatar.src = profileData.avatar;
+
+    console.log(cardsData);
+
+    const renderInitialCards = new Section({
+      items: cardsData,
+      renderer: (item) => {
+        const cardElement = createCard(item);
+        renderInitialCards.addItem(cardElement);
+      }
+    },
+    '.elements');
+    
+    renderInitialCards.renderitems();
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  });

@@ -8,34 +8,11 @@ export const settings = {
   errorClass: 'popup__error'
 };
 
-// Изначальный массив карточек.
-export const initialCards = [
-  {
-    name: 'Тебердинский заповедник',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/teberinskiy-zapovednik.jpg?raw=true'
-  },
-  {
-    name: 'Косино',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/kosino.jpg?raw=true'
-  },
-  {
-    name: 'Лазаревское',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/lazarevskoe.jpg?raw=true'
-  },
-  {
-    name: 'Элиста',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/elista.jpg?raw=true'
-  },
-  {
-    name: 'Озеро Рица',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/ozero-ritsa.jpg?raw=true'
-  },
-  {
-    name: 'Абхазия',
-    link: 'https://github.com/StasPanda/mesto/blob/develop/images/abkhazia.jpg?raw=true'
-  }
-];
-
 // Кнопки.
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
+
+// Элементы профиля
+export const profileAvatar = document.querySelector('.profile__avatar');
+export const profileName = document.querySelector('.profile__name');
+export const profileJob = document.querySelector('.profile__job');
