@@ -5,7 +5,7 @@
 .header__logo{background-image:url(03b78ada3425e9132ff3.svg);background-size:cover;height:33px;margin-bottom:40px;width:142px}@media screen and (max-width:879px){.header__logo{height:24.4px;margin-bottom:31.6px;width:103.74px}}
 .profile{align-items:center;display:flex;justify-content:space-between;margin:0 auto;max-width:880px;padding:40px 0 50px}@media screen and (max-width:879px){.profile{flex-direction:column;gap:30px;padding:42px 19px 36px}}
 .profile__container{align-items:center;display:flex;gap:30px}@media screen and (max-width:879px){.profile__container{flex-direction:column;gap:26px}}
-.profile__avatar{border-radius:50%;height:120px;width:120px}
+.profile__avatar{border-radius:50%;height:120px;-o-object-fit:cover;object-fit:cover;width:120px}
 .profile__info{display:flex;flex-direction:column;gap:16px;position:relative}@media screen and (max-width:879px){.profile__info{align-items:center;gap:10px}}
 .profile__name{text-rendering:optimizeLegibility;color:#fff;font-size:42px;font-weight:500;line-height:1.14;margin:0;max-width:294px}@media screen and (max-width:879px){.profile__name{font-size:27px;line-height:1.2;max-width:189px}}
 .profile__name_text-hidden{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
