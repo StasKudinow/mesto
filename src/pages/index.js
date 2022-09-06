@@ -1,15 +1,31 @@
 import './index.css';
 
-import { settings, buttonEdit, buttonAdd,
-  profileAvatar, profileName, profileJob } from '../utils/constants.js';
+import { settings, buttonEdit, buttonAdd, buttonTrash } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+
+
+const api = new Api(
+  'https://nomoreparties.co/v1/cohort-49/',
+  '776fa51b-f2c4-44dc-b3e7-060fea23d99a'
+);
+
+
+// Экземпляры классов.
+const popupImage = new PopupWithImage('.popup_show');
+const popupConfirm = new PopupWithConfirmation('.popup_delete');
+const userInfo = new UserInfo({
+  profileNameSelector: '.profile__name',
+  profilejobSelector: '.profile__job',
+  profileAvatarSelector: '.profile__avatar'
+});
 
 
 // Создание экземпляра карточки.
@@ -18,6 +34,11 @@ const createCard = (item) => {
     data: item,
     handleCardClick: () => {
       popupImage.open(item.name, item.link);
+    },
+    handleCardDelete: () => {
+      popupConfirm.open(item._id);
+      
+      console.log(item._id)
     }
   },
   '.card-template');
@@ -28,25 +49,43 @@ const createCard = (item) => {
 };
 
 
-// Создание массива карточек + добавление в DOM.
+// Отрисовка карточек.
+const renderCards = new Section({
+  renderer: (item) => {
+    const cardElement = createCard(item);
+    renderCards.renderAppendItems(cardElement);
+  }
+},
+'.elements');
 
 
+// Промисы данных профиля и изначального массива карточек.
+Promise.all([api.getProfileData(), api.getInitialCards()])
+  .then(([profileData, cardsData]) => {
+    console.log(profileData);
+    userInfo.setUserInfo(profileData);
 
-// Экземпляры классов.
-const popupImage = new PopupWithImage('.popup_show');
-const userInfo = new UserInfo({
-  profileNameSelector: '.profile__name',
-  profilejobSelector: '.profile__job'
-});
+    console.log(cardsData);
+    renderCards.renderItems(cardsData);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  });
 
 
 // Сабмит и закрытие попапа профиля.
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_profile',
-  handleFormSubmit: (data) => {
-    userInfo.setUserInfo(data);
-
-    popupProfile.close();
+  handleFormSubmit: (formData) => {
+    console.log(formData)
+    api.setProfileData(formData)
+      .then((data) => {
+        userInfo.setUserInfo(data);
+        popupProfile.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }
 });
 
@@ -54,11 +93,18 @@ const popupProfile = new PopupWithForm({
 // Сабмит и закрытие попапа добавления карточки.
 const popupCards = new PopupWithForm({
   popupSelector: '.popup_cards',
-  handleFormSubmit: (item) => {
-    const cardElement = createCard(item);
-    renderInitialCards.addItem(cardElement);
-
-    popupCards.close();
+  handleFormSubmit: (formData) => {
+    console.log(formData)
+    api.addCard(formData)
+      .then((item) => {
+        console.log(item)
+        const cardElement = createCard(item);
+        renderCards.addItem(cardElement);
+        popupCards.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }
 });
 
@@ -84,6 +130,7 @@ buttonAdd.addEventListener('click', () => {
 popupProfile.setEventListeners();
 popupCards.setEventListeners();
 popupImage.setEventListeners();
+popupConfirm.setEventListeners();
 
 
 // Валидация форм при помощи объекта валидаторов по атрибуту 'name'.
@@ -101,65 +148,3 @@ const enableValidation = (settings) => {
 };
 
 enableValidation(settings);
-
-
-
-
-
-
-const profileApi = new Api('https://nomoreparties.co/v1/cohort-49/users/me', {
-  headers: {
-    authorization:'776fa51b-f2c4-44dc-b3e7-060fea23d99a',
-    'Content-Type': 'application/json'
-  }
-});
-
-// profileApi.getData()
-//   .then((data) => {
-//     console.log(data);
-//     profileName.textContent = data.name;
-//     profileJob.textContent = data.about;
-//     profileAvatar.src = data.avatar;
-//   })
-//   .catch((err) => {
-//     console.log(`Ошибка: ${err}`);
-//   });
-
-const cardsApi = new Api('https://mesto.nomoreparties.co/v1/cohort-49/cards', {
-  headers: {
-    authorization:'776fa51b-f2c4-44dc-b3e7-060fea23d99a',
-    'Content-Type': 'application/json'
-  }
-});
-
-// cardsApi.getData()
-//   .then((data) => {
-//     console.log(data);
-//   })
-//   .catch((err) => {
-//     console.log(`Ошибка: ${err}`);
-//   });
-
-Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
-  .then(([profileData, cardsData]) => {
-    console.log(profileData);
-    profileName.textContent = profileData.name;
-    profileJob.textContent = profileData.about;
-    profileAvatar.src = profileData.avatar;
-
-    console.log(cardsData);
-
-    const renderInitialCards = new Section({
-      items: cardsData,
-      renderer: (item) => {
-        const cardElement = createCard(item);
-        renderInitialCards.addItem(cardElement);
-      }
-    },
-    '.elements');
-    
-    renderInitialCards.renderitems();
-  })
-  .catch((err) => {
-    console.log(`Ошибка: ${err}`);
-  });

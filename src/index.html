@@ -35,7 +35,10 @@
         <button class="elements__trash"></button>
         <div class="elements__title">
           <h2 class="elements__name elements__name_text-hidden"></h2>
-          <button class="elements__button"></button>
+          <div class="elements__likes">
+            <button class="elements__button"></button>
+            <p class="elements__counter">1</p>
+          </div>
         </div>
       </div>
     </template>
@@ -78,6 +81,13 @@
         <button class="popup__close-button" type="button"></button>
         <img class="popup__show-image">
         <p class="popup__show-title"></p>
+      </div>
+    </div>
+    <div class="popup popup_delete">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+        <h2 class="popup__title popup__title_delete">Вы уверены?</h2>
+        <button class="popup__button popup__button_delete" type="submit">Да</button>
       </div>
     </div>
   </div>

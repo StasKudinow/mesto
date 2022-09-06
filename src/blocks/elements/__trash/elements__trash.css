@@ -7,8 +7,8 @@
   border: none;
   background-color: rgba(0, 0, 0, 0);
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 18px;
+  right: 15px;
 }
 
 .elements__trash:hover {

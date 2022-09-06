@@ -11,8 +11,4 @@ export const settings = {
 // Кнопки.
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
-
-// Элементы профиля
-export const profileAvatar = document.querySelector('.profile__avatar');
-export const profileName = document.querySelector('.profile__name');
-export const profileJob = document.querySelector('.profile__job');
+export const buttonTrash = document.querySelector('.elements__trash');
