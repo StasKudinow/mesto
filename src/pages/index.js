@@ -20,33 +20,11 @@ const api = new Api(
 
 // Экземпляры классов.
 const popupImage = new PopupWithImage('.popup_show');
-const popupConfirm = new PopupWithConfirmation('.popup_delete');
 const userInfo = new UserInfo({
   profileNameSelector: '.profile__name',
   profilejobSelector: '.profile__job',
   profileAvatarSelector: '.profile__avatar'
 });
-
-
-// Создание экземпляра карточки.
-const createCard = (item) => {
-  const card = new Card({
-    data: item,
-    handleCardClick: () => {
-      popupImage.open(item.name, item.link);
-    },
-    handleCardDelete: () => {
-      popupConfirm.open(item._id);
-      
-      console.log(item._id)
-    }
-  },
-  '.card-template');
-
-  const cardElement = card.generateCard();
-
-  return cardElement;
-};
 
 
 // Отрисовка карточек.
@@ -57,6 +35,42 @@ const renderCards = new Section({
   }
 },
 '.elements');
+
+
+// Создание экземпляра карточки.
+const createCard = (item) => {
+  const card = new Card({
+    data: item,
+    handleCardClick: () => {
+      popupImage.open(item.name, item.link);
+    },
+    handleCardDelete: (idCard, cardElement) => {
+      popupConfirm.open();
+      console.log(idCard);
+      popupConfirm.submitDeleteCard(idCard, cardElement);
+    }
+  },
+  '.card-template');
+
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
+
+const popupConfirm = new PopupWithConfirmation({
+  popupSelector: '.popup_delete',
+  handleDelete: (idCard, cardElement) => {
+    api.deleteCard(idCard)
+      .then(() => {
+        cardElement.remove();
+        cardElement = null;
+        popupConfirm.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+});
 
 
 // Промисы данных профиля и изначального массива карточек.

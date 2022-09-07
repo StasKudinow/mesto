@@ -49,12 +49,6 @@ export default class Card {
     evt.target.classList.toggle('elements__button_active');
   }
 
-  // Функция удаления карточки.
-  removeCard() {
-    this._element.remove();
-    this._element = null;
-  }
-
   _setEventListeners() {
     // Лиснер full-screen попапа.
     this._cardImage.addEventListener('click', () => {
@@ -63,7 +57,7 @@ export default class Card {
 
     // Лиснер попапа подтверждения удаления карточки.
     this._buttonTrash.addEventListener('click', () => {
-      this._handleCardDelete();
+      this._handleCardDelete(this._idCard, this._element);
       console.log('клик');
     });
 
