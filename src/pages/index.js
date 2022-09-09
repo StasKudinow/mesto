@@ -137,7 +137,7 @@ popupCards.setEventListeners();
 
 // Сабмит и закрытие попапа редактирования аватара пользователя.
 const popupAvatar = new PopupWithForm({
-  popupSelector: '.popup__avatar',
+  popupSelector: '.popup_avatar',
   handleFormSubmit: (formData) => {
     popupAvatar.changeButtonText('Сохранить');
     api.setAvatar(formData)
