@@ -1,6 +1,6 @@
 import './index.css';
 
-import { settings, buttonEdit, buttonAdd } from '../utils/constants.js';
+import { settings, buttonEdit, buttonAdd, buttonAvatar } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
@@ -10,6 +10,8 @@ import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+
+let idUser = null;
 
 
 // Экземпляры классов.
@@ -29,18 +31,17 @@ const api = new Api(
 const createCard = (item) => {
   const card = new Card({
     data: item,
+    idUser,
     handleCardClick: () => {
       popupImage.open(item.name, item.link);
     },
     handleCardDelete: (idCard, cardElement) => {
       popupConfirm.open(idCard, cardElement);
-      console.log(idCard);
     },
     handleLike: (idCard) => {
       if(card.isLiked()) {
         api.deleteLike(idCard)
           .then((res) => {
-            console.log('не лайк', res)
             card.setLikes(res.likes);
           })
           .catch((err) => {
@@ -49,7 +50,6 @@ const createCard = (item) => {
       } else {
         api.putLike(idCard)
           .then((res) => {
-            console.log('лайк', res)
             card.setLikes(res.likes);
           })
           .catch((err) => {
@@ -80,10 +80,9 @@ const renderCards = new Section({
 // Промисы данных профиля и изначального массива карточек.
 Promise.all([api.getProfileData(), api.getInitialCards()])
   .then(([profileData, cardsData]) => {
-    console.log(profileData);
+    idUser = profileData._id;
     userInfo.setUserInfo(profileData);
 
-    console.log(cardsData);
     renderCards.renderItems(cardsData);
   })
   .catch((err) => {
@@ -95,6 +94,7 @@ Promise.all([api.getProfileData(), api.getInitialCards()])
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_profile',
   handleFormSubmit: (formData) => {
+    popupProfile.changeButtonText('Сохранить');
     api.setProfileData(formData)
       .then((data) => {
         userInfo.setUserInfo(data);
@@ -102,7 +102,10 @@ const popupProfile = new PopupWithForm({
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => {
+        popupProfile.changeButtonText('Сохранить');
+      })
   }
 });
 
@@ -113,20 +116,45 @@ popupProfile.setEventListeners();
 const popupCards = new PopupWithForm({
   popupSelector: '.popup_cards',
   handleFormSubmit: (formData) => {
+    popupCards.changeButtonText('Создать');
     api.addCard(formData)
       .then((item) => {
-        // console.log(item)
         const cardElement = createCard(item);
         renderCards.addItem(cardElement);
         popupCards.close();
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => {
+        popupCards.changeButtonText('Создать');
+      })
   }
 });
 
 popupCards.setEventListeners();
+
+
+// Сабмит и закрытие попапа редактирования аватара пользователя.
+const popupAvatar = new PopupWithForm({
+  popupSelector: '.popup__avatar',
+  handleFormSubmit: (formData) => {
+    popupAvatar.changeButtonText('Сохранить');
+    api.setAvatar(formData)
+      .then((data) => {
+        userInfo.setUserInfo(data);
+        popupAvatar.close()
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupAvatar.changeButtonText('Сохранить');
+      })
+  }
+});
+
+popupAvatar.setEventListeners();
 
 
 // Сабмит и закрытие попапа подтверждения удаления карточки.
@@ -163,6 +191,13 @@ buttonAdd.addEventListener('click', () => {
   popupCards.open();
   formValidators['cards-form'].resetValidation();
 });
+
+
+//Открытие попапа редактирования аватара пользователя.
+buttonAvatar.addEventListener('click', () => {
+  popupAvatar.open();
+  formValidators['avatar-form'].resetValidation();
+})
 
 
 // Валидация форм при помощи объекта валидаторов по атрибуту 'name'.

@@ -1,0 +1,22 @@
+.profile__avatar-button {
+  width: 120px;
+  height: 120px;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  right: 0;
+  bottom: 123px;
+  z-index: 1;
+  background-color: #000000;
+  opacity: 0;
+}
+
+.profile__avatar-button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.4s ease;
+}

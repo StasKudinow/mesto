@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ data, handleCardClick, handleCardDelete, handleLike }, templateSelector) {
+  constructor({ data, idUser, handleCardClick, handleCardDelete, handleLike }, templateSelector) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -9,7 +9,7 @@ export default class Card {
     this._handleLike = handleLike;
     this._idCard = data._id;
     this._owner = data.owner._id;
-    this._idUser = 'ee65f85e444fb325a8167792';
+    this._idUser = idUser;
   }
 
   // Получение template-элемента.
@@ -75,7 +75,6 @@ export default class Card {
     // Лиснер попапа подтверждения удаления карточки.
     this._buttonTrash.addEventListener('click', () => {
       this._handleCardDelete(this._idCard, this._element);
-      console.log('клик');
     });
 
     // Лиснер кнопки лайка.

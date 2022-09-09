@@ -1,3 +1,5 @@
+import { data } from "autoprefixer";
+
 export default class Api {
   constructor(baseUrl, token) {
     this._baseUrl = baseUrl;
@@ -114,6 +116,26 @@ export default class Api {
       headers: {
         authorization: this._token
       }
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+    })
+  }
+
+  setAvatar(data) {
+    return fetch(`${this._baseUrl}users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: data.link
+      })
     })
     .then(res => {
       if(res.ok) {
