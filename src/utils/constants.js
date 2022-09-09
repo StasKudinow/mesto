@@ -11,4 +11,3 @@ export const settings = {
 // Кнопки.
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
-export const buttonTrash = document.querySelector('.elements__trash');

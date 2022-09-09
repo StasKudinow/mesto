@@ -6,13 +6,19 @@ export default class PopupWithConfirmation extends Popup {
     this._handleDelete = handleDelete;
   }
 
-  submitDeleteCard(idCard, cardElement) {
+  setEventListeners() {
+    super.setEventListeners();
     this._popup.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._handleDelete(idCard, cardElement);
-      console.log(idCard);
+      this._handleDelete(this._idCard, this._cardElement);
+      console.log(this._idCard);
       console.log('ДА');
-      this.close();
-    })
+    });
+  }
+
+  open(idCard, cardElement) {
+    this._idCard = idCard;
+    this._cardElement = cardElement;
+    super.open();
   }
 }

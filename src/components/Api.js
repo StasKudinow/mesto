@@ -92,4 +92,35 @@ export default class Api {
     })
   }
 
+  putLike(id) {
+    return fetch(`${this._baseUrl}cards/${id}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+    })
+  }
+
+  deleteLike(id) {
+    return fetch(`${this._baseUrl}cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+    })
+  }
 }
