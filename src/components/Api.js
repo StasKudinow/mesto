@@ -1,148 +1,89 @@
 import { data } from "autoprefixer";
 
 export default class Api {
-  constructor(baseUrl, token) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
-    this._token = token;
+    this._headers = headers;
+  }
+
+  _checkResponse(res) {
+    if(res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(res.status);
+    }
   }
 
   getProfileData() {
     return fetch(`${this._baseUrl}users/me`, {
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(this._checkResponse)
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}cards`, {
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(this._checkResponse)
   }
 
   setProfileData(data) {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         about: data.job
       })
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(this._checkResponse)
   }
 
   addCard(data) {
     return fetch(`${this._baseUrl}cards`, {
       method: 'POST',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link
       })
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(this._checkResponse)
   }
 
   deleteCard(id) {
     return fetch(`${this._baseUrl}cards/${id}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(this._checkResponse)
   }
 
   putLike(id) {
     return fetch(`${this._baseUrl}cards/${id}/likes`, {
       method: 'PUT',
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(this._checkResponse)
   }
 
   deleteLike(id) {
     return fetch(`${this._baseUrl}cards/${id}/likes`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(this._checkResponse)
   }
 
   setAvatar(data) {
     return fetch(`${this._baseUrl}users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: data.link
       })
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(this._checkResponse)
   }
 }

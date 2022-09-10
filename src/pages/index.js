@@ -20,11 +20,15 @@ const userInfo = new UserInfo({
   profileNameSelector: '.profile__name',
   profilejobSelector: '.profile__job',
   profileAvatarSelector: '.profile__avatar'
+},
+idUser);
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/cohort-49/',
+  headers: {
+    authorization: '776fa51b-f2c4-44dc-b3e7-060fea23d99a',
+    'Content-Type': 'application/json'
+  },
 });
-const api = new Api(
-  'https://nomoreparties.co/v1/cohort-49/',
-  '776fa51b-f2c4-44dc-b3e7-060fea23d99a'
-);
 
 
 // Создание экземпляра карточки.
@@ -94,7 +98,7 @@ Promise.all([api.getProfileData(), api.getInitialCards()])
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_profile',
   handleFormSubmit: (formData) => {
-    popupProfile.changeButtonText('Сохранить');
+    popupProfile.renderLoading(true);
     api.setProfileData(formData)
       .then((data) => {
         userInfo.setUserInfo(data);
@@ -104,7 +108,7 @@ const popupProfile = new PopupWithForm({
         console.log(`Ошибка: ${err}`);
       })
       .finally(() => {
-        popupProfile.changeButtonText('Сохранить');
+        popupProfile.renderLoading(false);
       })
   }
 });
@@ -116,7 +120,7 @@ popupProfile.setEventListeners();
 const popupCards = new PopupWithForm({
   popupSelector: '.popup_cards',
   handleFormSubmit: (formData) => {
-    popupCards.changeButtonText('Создать');
+    popupCards.renderLoading(true);
     api.addCard(formData)
       .then((item) => {
         const cardElement = createCard(item);
@@ -127,7 +131,7 @@ const popupCards = new PopupWithForm({
         console.log(`Ошибка: ${err}`);
       })
       .finally(() => {
-        popupCards.changeButtonText('Создать');
+        popupCards.renderLoading(false);
       })
   }
 });
@@ -139,7 +143,7 @@ popupCards.setEventListeners();
 const popupAvatar = new PopupWithForm({
   popupSelector: '.popup_avatar',
   handleFormSubmit: (formData) => {
-    popupAvatar.changeButtonText('Сохранить');
+    popupAvatar.renderLoading(true);
     api.setAvatar(formData)
       .then((data) => {
         userInfo.setUserInfo(data);
@@ -149,7 +153,7 @@ const popupAvatar = new PopupWithForm({
         console.log(`Ошибка: ${err}`);
       })
       .finally(() => {
-        popupAvatar.changeButtonText('Сохранить');
+        popupAvatar.renderLoading(false);
       })
   }
 });
