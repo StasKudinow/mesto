@@ -31,4 +31,4 @@
 * БЭМ Nested.
 
 ## __URL:__
-[GitPages](https://staskudinow.github.io/mesto/)
+[GitHub Pages](https://staskudinow.github.io/mesto/)
