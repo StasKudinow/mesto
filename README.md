@@ -32,4 +32,3 @@
 
 ## __URL:__
 [GitHub Pages](https://staskudinow.github.io/mesto/)
-(test)
